@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Book from "./Book";
 
 class SearchBook extends Component {
   state = {
@@ -20,7 +21,9 @@ class SearchBook extends Component {
     const { query } = this.state;
     const { books } = this.props;
 
-    const showingBooks = query === "" ? books : books.filter(b => b.author.toLowerCase().includes(query.toLocaleLowerCase()));
+    console.log(books);
+
+    const showingBooks = query === "" ? books : books.filter(b => b.authors.toLowerCase().includes(query.toLocaleLowerCase()));
 
     return (
       <div className="search-books">
@@ -51,33 +54,7 @@ class SearchBook extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {showingBooks.map(book => (
-              <li key={book.id}>
-                <div className="book">
-                  <div className="book-top">
-                    <div
-                      className="book-cover"
-                      style={{
-                        width: 128,
-                        height: 193,
-                        backgroundImage: `url("${book.imageLinks.thumbnail}")`,
-                      }}
-                    />
-                    <div className="book-shelf-changer">
-                      <select>
-                        <option value="move" disabled>
-                          Move to...
-                        </option>
-                        <option value="currentlyReading">Currently Reading</option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
-                        <option value="none">None</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="book-title">{book.title}</div>
-                  <div className="book-authors">{book.author}</div>
-                </div>
-              </li>
+              <Book key={book.id} book={book} />
             ))}
           </ol>
         </div>

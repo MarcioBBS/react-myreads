@@ -10,7 +10,7 @@ class BooksApp extends React.Component {
     books: [],
   };
 
-  componentDidMount() {
+  fetchAPI() {
     BooksAPI.getAll().then(books => {
       this.setState(() => ({
         books,
@@ -18,11 +18,15 @@ class BooksApp extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.fetchAPI();
+  }
+
   render() {
     return (
       <div>
         <Router>
-          <Route exact path="/" component={Shelf} />
+          <Route exact path="/" render={() => <Shelf books={this.state.books} />} />
 
           {/* <Route path="/searchbooks" component={SearchBooks} /> */}
           <Route exact path="/searchbooks" render={({ books }) => <SearchBooks books={this.state.books} />} />

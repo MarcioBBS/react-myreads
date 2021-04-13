@@ -8,7 +8,7 @@ import "./App.css";
 class BooksApp extends React.Component {
   state = {
     books: [],
-    searchedBooks: [],
+    allBooks: [],
   };
 
   fetchAPI() {
@@ -33,12 +33,12 @@ class BooksApp extends React.Component {
     if (query.length > 0) {
       BooksAPI.search(query).then(res => {
         this.setState(() => ({
-          searchedBooks: res,
+          allBooks: res,
         }));
       });
     } else {
       this.setState(() => ({
-        searchedBooks: [],
+        allBooks: [],
       }));
     }
   };
@@ -49,7 +49,7 @@ class BooksApp extends React.Component {
         <Router>
           <Route exact path="/" render={() => <Shelf books={this.state.books} updateShelf={this.updateShelf} />} />
 
-          <Route exact path="/searchbooks" render={() => <SearchBooks books={this.state.books} updateShelf={this.updateShelf} onSearchBooks={this.searchBooks} searchedBooks={this.state.searchedBooks} />} />
+          <Route exact path="/searchbooks" render={() => <SearchBooks books={this.state.books} updateShelf={this.updateShelf} onSearchBooks={this.searchBooks} allBooks={this.state.allBooks} />} />
         </Router>
       </div>
     );

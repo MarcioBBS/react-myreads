@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 const Book = props => {
-  const { book } = props;
+  const { book, updateShelf } = props;
 
   return (
     <li key={book.id}>
@@ -16,7 +16,13 @@ const Book = props => {
             }}
           />
           <div className="book-shelf-changer">
-            <select>
+            <select
+              onChange={e => {
+                const option = e.target.value;
+                updateShelf(book.id, option);
+              }}
+              value={book.shelf}
+            >
               <option value="move" disabled>
                 Move to...
               </option>
@@ -34,4 +40,5 @@ const Book = props => {
   );
 };
 
-export default Book;
+// export default Book;
+export default React.memo(Book);

@@ -4,10 +4,12 @@ import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import Shelf from "./Shelf";
 import SearchBooks from "./SearchBook";
 import "./App.css";
+import Book from "./Book";
 
 class BooksApp extends React.Component {
   state = {
     books: [],
+    bookList: [],
   };
 
   fetchAPI() {
@@ -22,14 +24,22 @@ class BooksApp extends React.Component {
     this.fetchAPI();
   }
 
+  updateShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(res => {
+      this.fetchAPI();
+    });
+
+    console.log(`Book: ${book} --- Shelf: ${shelf}`);
+  };
+
   render() {
     return (
       <div>
         <Router>
-          <Route exact path="/" render={() => <Shelf books={this.state.books} />} />
+          <Route exact path="/" render={() => <Shelf books={this.state.books} updateShelf={this.updateShelf} />} />
 
           {/* <Route path="/searchbooks" component={SearchBooks} /> */}
-          <Route exact path="/searchbooks" render={({ books }) => <SearchBooks books={this.state.books} />} />
+          <Route exact path="/searchbooks" render={() => <SearchBooks books={this.state.books} updateShelf={this.updateShelf} />} />
         </Router>
       </div>
     );

@@ -4,25 +4,9 @@ import Book from "./Book";
 import "./App.css";
 
 class Shelf extends Component {
-  renderShelf(books, shelfTitle, shelfID) {
-    return (
-      <div className="bookshelf">
-        <h2 className="bookshelf-title">{shelfTitle}</h2>
-        <div className="bookshelf-books">
-          <ol className="books-grid">
-            {books
-              .filter(b => b.shelf === shelfID)
-              .map(b => (
-                <Book key={b.id} book={b} />
-              ))}
-          </ol>
-        </div>
-      </div>
-    );
-  }
-
   render() {
-    const { books } = this.props;
+    const { books, updateShelf } = this.props;
+    const shelves = [{ name: "Currently Reading", id: "currentlyReading" }, { name: "Want to Read", id: "wantToRead" }, { name: "Read", id: "read" }];
 
     return (
       <div className="list-books">
@@ -31,14 +15,20 @@ class Shelf extends Component {
         </div>
 
         <div className="list-books-content">
-          {/* Render Shelf Currently Reading */}
-          {this.renderShelf(books, "Currently Reading", "currentlyReading")}
-
-          {/* Render Shelf Wanto to Read */}
-          {this.renderShelf(books, "Want to Read", "wantToRead")}
-
-          {/* Render Shelf Wanto to Read */}
-          {this.renderShelf(books, "Read", "read")}
+          {shelves.map(shelf => (
+            <div key={shelf.id} className="bookshelf">
+              <h2 className="bookshelf-title">{shelf.name}</h2>
+              <div className="bookshelf-books">
+                <ol className="books-grid">
+                  {books
+                    .filter(b => b.shelf === shelf.id)
+                    .map(b => (
+                      <Book key={b.id} book={b} updateShelf={updateShelf} />
+                    ))}
+                </ol>
+              </div>
+            </div>
+          ))}
         </div>
 
         <div className="open-search">

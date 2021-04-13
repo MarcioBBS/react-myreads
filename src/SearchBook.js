@@ -19,9 +19,7 @@ class SearchBook extends Component {
 
   render() {
     const { query } = this.state;
-    const { books, updateShelf, onSearchBooks, searchedBooks } = this.props;
-
-    console.log(searchedBooks);
+    const { books, updateShelf, onSearchBooks, allBooks } = this.props;
 
     return (
       <div className="search-books">
@@ -36,15 +34,17 @@ class SearchBook extends Component {
               placeholder="Search by title or author"
               onChange={event => {
                 this.updateQuery(event.target.value);
-                onSearchBooks(query);
+                onSearchBooks(event.target.value);
               }}
             />
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid">{/* {searchedBooks.map(book => (
+          <ol className="books-grid">
+            {allBooks.map(book => (
               <Book key={book.id} book={book} updateShelf={updateShelf} />
-            ))} */}</ol>
+            ))}
+          </ol>
         </div>
       </div>
     );

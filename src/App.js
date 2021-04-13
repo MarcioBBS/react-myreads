@@ -4,12 +4,11 @@ import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import Shelf from "./Shelf";
 import SearchBooks from "./SearchBook";
 import "./App.css";
-import Book from "./Book";
 
 class BooksApp extends React.Component {
   state = {
     books: [],
-    bookList: [],
+    searchedBooks: [],
   };
 
   fetchAPI() {
@@ -30,14 +29,27 @@ class BooksApp extends React.Component {
     });
   };
 
+  searchBooks = query => {
+    if (query.length > 0) {
+      BooksAPI.search(query).then(res => {
+        this.setState(() => ({
+          searchedBooks: res,
+        }));
+      });
+    } else {
+      this.setState(() => ({
+        searchedBooks: [],
+      }));
+    }
+  };
+
   render() {
     return (
       <div>
         <Router>
           <Route exact path="/" render={() => <Shelf books={this.state.books} updateShelf={this.updateShelf} />} />
 
-          {/* <Route path="/searchbooks" component={SearchBooks} /> */}
-          <Route exact path="/searchbooks" render={() => <SearchBooks books={this.state.books} updateShelf={this.updateShelf} />} />
+          <Route exact path="/searchbooks" render={() => <SearchBooks books={this.state.books} updateShelf={this.updateShelf} onSearchBooks={this.searchBooks} searchedBooks={this.state.searchedBooks} />} />
         </Router>
       </div>
     );

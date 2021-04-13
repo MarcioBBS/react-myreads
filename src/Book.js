@@ -17,8 +17,8 @@ const Book = props => {
           />
           <div className="book-shelf-changer">
             <select
-              onChange={e => {
-                const option = e.target.value;
+              onChange={event => {
+                const option = event.target.value;
                 updateShelf(book, option);
               }}
               value={book.shelf}

@@ -19,7 +19,7 @@ const Book = props => {
             <select
               onChange={e => {
                 const option = e.target.value;
-                updateShelf(book.id, option);
+                updateShelf(book, option);
               }}
               value={book.shelf}
             >

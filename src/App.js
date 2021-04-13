@@ -28,8 +28,6 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, shelf).then(res => {
       this.fetchAPI();
     });
-
-    console.log(`Book: ${book} --- Shelf: ${shelf}`);
   };
 
   render() {

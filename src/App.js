@@ -8,7 +8,7 @@ import "./App.css";
 class BooksApp extends React.Component {
   state = {
     books: [],
-    allBooks: [],
+    searchedBooks: [],
     queryMessage: "",
   };
 
@@ -35,14 +35,14 @@ class BooksApp extends React.Component {
       BooksAPI.search(query).then(res => {
         if (res.error) {
           this.setState(() => ({
-            allBooks: [],
+            searchedBooks: [],
             queryMessage: "A search was done, but it yielded no results.",
           }));
-        } else this.setState(() => ({ allBooks: res }));
+        } else this.setState(() => ({ searchedBooks: res }));
       });
     } else {
       this.setState(() => ({
-        allBooks: [],
+        searchedBooks: [],
         queryMessage: "",
       }));
     }
@@ -54,7 +54,7 @@ class BooksApp extends React.Component {
         <Router>
           <Route exact path="/" render={() => <Shelf books={this.state.books} updateShelf={this.updateShelf} />} />
 
-          <Route exact path="/searchbooks" render={() => <SearchBooks books={this.state.books} updateShelf={this.updateShelf} onSearchBooks={this.searchBooks} allBooks={this.state.allBooks} queryMessage={this.state.queryMessage} />} />
+          <Route exact path="/searchbooks" render={() => <SearchBooks books={this.state.books} updateShelf={this.updateShelf} onSearchBooks={this.searchBooks} searchedBooks={this.state.searchedBooks} queryMessage={this.state.queryMessage} />} />
         </Router>
       </div>
     );

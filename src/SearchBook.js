@@ -19,7 +19,7 @@ class SearchBook extends Component {
 
   render() {
     const { query } = this.state;
-    const { books, updateShelf, onSearchBooks, allBooks } = this.props;
+    const { books, updateShelf, onSearchBooks, allBooks, queryMessage } = this.props;
 
     return (
       <div className="search-books">
@@ -40,6 +40,12 @@ class SearchBook extends Component {
           </div>
         </div>
         <div className="search-books-results">
+          {queryMessage !== "" && query.length > 0 && allBooks.length === 0 && (
+            <div>
+              <p>{queryMessage}</p>
+            </div>
+          )}
+
           <ol className="books-grid">
             {allBooks.map(book => (
               <Book key={book.id} book={book} updateShelf={updateShelf} />

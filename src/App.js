@@ -9,6 +9,7 @@ class BooksApp extends React.Component {
   state = {
     books: [],
     allBooks: [],
+    queryMessage: "",
   };
 
   fetchAPI() {
@@ -32,13 +33,17 @@ class BooksApp extends React.Component {
   searchBooks = query => {
     if (query.length > 0) {
       BooksAPI.search(query).then(res => {
-        this.setState(() => ({
-          allBooks: res,
-        }));
+        if (res.error) {
+          this.setState(() => ({
+            allBooks: [],
+            queryMessage: "A search was done, but it yielded no results.",
+          }));
+        } else this.setState(() => ({ allBooks: res }));
       });
     } else {
       this.setState(() => ({
         allBooks: [],
+        queryMessage: "",
       }));
     }
   };
@@ -49,7 +54,7 @@ class BooksApp extends React.Component {
         <Router>
           <Route exact path="/" render={() => <Shelf books={this.state.books} updateShelf={this.updateShelf} />} />
 
-          <Route exact path="/searchbooks" render={() => <SearchBooks books={this.state.books} updateShelf={this.updateShelf} onSearchBooks={this.searchBooks} allBooks={this.state.allBooks} />} />
+          <Route exact path="/searchbooks" render={() => <SearchBooks books={this.state.books} updateShelf={this.updateShelf} onSearchBooks={this.searchBooks} allBooks={this.state.allBooks} queryMessage={this.state.queryMessage} />} />
         </Router>
       </div>
     );

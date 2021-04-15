@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import Book from "./Book";
 import "./App.css";
 
@@ -38,5 +39,10 @@ class Shelf extends Component {
     );
   }
 }
+
+Shelf.propTypes = {
+  books: PropTypes.array.isRequired,
+  updateShelf: PropTypes.func.isRequired,
+};
 
 export default Shelf;

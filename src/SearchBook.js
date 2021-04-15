@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import Book from "./Book";
 
 class SearchBook extends Component {
@@ -67,5 +68,13 @@ class SearchBook extends Component {
     );
   }
 }
+
+SearchBook.propTypes = {
+  books: PropTypes.array.isRequired,
+  updateShelf: PropTypes.func.isRequired,
+  onSearchBooks: PropTypes.func.isRequired,
+  searchedBooks: PropTypes.array.isRequired,
+  queryMessage: PropTypes.string.isRequired,
+};
 
 export default SearchBook;

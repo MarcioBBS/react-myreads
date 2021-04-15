@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 const Book = props => {
   const { book, updateShelf } = props;
@@ -38,6 +39,11 @@ const Book = props => {
       </div>
     </li>
   );
+};
+
+Book.propTypes = {
+  book: PropTypes.array.isRequired,
+  updateShelf: PropTypes.func.isRequired,
 };
 
 // export default Book;

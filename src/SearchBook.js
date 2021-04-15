@@ -21,6 +21,17 @@ class SearchBook extends Component {
     const { query } = this.state;
     const { books, updateShelf, onSearchBooks, searchedBooks, queryMessage } = this.props;
 
+    if (searchedBooks.length > 0) {
+      for (const book of searchedBooks) {
+        book.shelf = "none";
+        for (const bookOnShelf of books) {
+          if (book.id === bookOnShelf.id) {
+            book.shelf = bookOnShelf.shelf;
+          }
+        }
+      }
+    }
+
     return (
       <div className="search-books">
         <div className="search-books-bar">

@@ -2,7 +2,7 @@
 
 MyReads is the first project from Udacity-React nanodegree program.
 
-To get started developing right away:
+To Run this project please follow the steps below:
 
 - install all project dependencies with `npm install`
 - start the development server with `npm start`

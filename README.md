@@ -4,6 +4,7 @@ MyReads is the first project from Udacity-React nanodegree program.
 
 To Run this project please follow the steps below:
 
+- download the project here: https://github.com/MarcioBBS/react-myreads
 - install all project dependencies with `npm install`
 - start the development server with `npm start`
 
